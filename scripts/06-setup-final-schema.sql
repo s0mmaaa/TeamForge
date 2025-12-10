@@ -1,0 +1,45 @@
+-- Create categories table
+CREATE TABLE IF NOT EXISTS categories (
+  id BIGSERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  color VARCHAR(50),
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Add category support to users table
+ALTER TABLE users ADD COLUMN IF NOT EXISTS category_id BIGINT REFERENCES categories(id);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS highlights TEXT[] DEFAULT '{}';
+ALTER TABLE users ADD COLUMN IF NOT EXISTS rating DECIMAL(3,2) DEFAULT 0;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS total_ratings INTEGER DEFAULT 0;
+
+-- Ensure required columns exist
+ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS bio TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS title VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS location VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS github VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS linkedin VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS twitter VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS website VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS experience_level VARCHAR(50);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS availability VARCHAR(50);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS onboarding_completed BOOLEAN DEFAULT FALSE;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS team_size VARCHAR(50);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS work_style TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS goals TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_url VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT NOW();
+ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW();
+
+-- Insert categories
+INSERT INTO categories (name, color) VALUES
+  ('Music', 'purple'),
+  ('Arts', 'pink'),
+  ('Dance', 'red'),
+  ('Development', 'blue'),
+  ('Design', 'cyan'),
+  ('Writing', 'orange'),
+  ('Photography', 'amber'),
+  ('Business', 'green')
+ON CONFLICT (name) DO NOTHING;
