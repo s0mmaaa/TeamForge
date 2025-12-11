@@ -1,0 +1,11 @@
+ALTER TABLE users
+ADD COLUMN title TEXT,
+ADD COLUMN github TEXT,
+ADD COLUMN linkedin TEXT,
+ADD COLUMN twitter TEXT,
+ADD COLUMN website TEXT,
+ADD COLUMN team_size TEXT,
+ADD COLUMN work_style TEXT,
+ADD COLUMN availability TEXT,
+ADD COLUMN goals TEXT,
+ADD COLUMN onboarding_completed BOOLEAN DEFAULT FALSE;
